@@ -107,3 +107,22 @@ main {
   transform: scale(1.1);
   box-shadow: 0 6px 12px rgba(123, 90, 72, 0);
 }
+
+
+@media (max-width: 768px) {
+  .video-background {
+    height: 50vh; /* Reduce height on mobile */
+  }
+
+  .video-background video {
+    height: 50vh;
+  }
+
+  .overlay-content {
+    padding: 60px 20px 30px; /* Optional: adjust padding */
+  }
+
+  .after-video-section {
+    margin-top: 50vh; /* Match the reduced video height */
+  }
+}
