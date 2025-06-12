@@ -5,6 +5,12 @@ body {
     color: #3B3030;
 }
 
+.logo{
+  height: 70px;
+  width: auto;
+}
+
+
 .site-header {
     background-color: #795757;
     padding: 1rem 2rem;
@@ -106,6 +112,22 @@ main {
 .feature-image:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 12px rgba(123, 90, 72, 0);
+}
+
+.font{
+
+  font-family: "Paprika", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 40px;
+
+}
+
+.fonts{
+font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
 }
 
 
