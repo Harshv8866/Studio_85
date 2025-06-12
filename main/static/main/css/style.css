@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #FFF0D1;
+    color: #3B3030;
+}
+
+.site-header {
+    background-color: #795757;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFF0D1;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #FFF0D1;
+}
+
+.nav-links a:hover {
+    color: #FFDAB9;
+}
+
+main {
+    padding: 2rem;
+}
+
+.site-footer {
+    background-color: #3B3030;
+    color: #FFF0D1;
+    text-align: center;
+    padding: 1rem;
+}
+
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;  /* Make the video full screen height */
+  overflow: hidden;
+  z-index: -1;
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay-content {
+  position: relative;
+  padding: 100px 20px 40px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4); /* Optional dark overlay */
+}
+
+.video-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.233); /* dark overlay */
+  z-index: 1;
+}
+
+
+.awards-section h5 {
+  color: #664343;
+  letter-spacing: 0.5px;
+}
+
+.awards-section p {
+  color: #795757;
+}
+
+
+.after-video-section {
+  background-color: #FFF0D1;
+  position: relative;
+  z-index: 2;
+  margin-top: 100vh; /* Ensures it comes after the full-screen fixed video */
+}
+
+
+.feature-image {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(123, 90, 72, 0);
+}
