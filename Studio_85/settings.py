@@ -131,4 +131,12 @@ import os
 
 # Static files (CSS, JS, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'main/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
+git add .
+git commit -m "Prepare project for Render deployment"
+git push
+
