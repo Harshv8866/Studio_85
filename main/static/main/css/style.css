@@ -50,8 +50,8 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;  /* Make the video full screen height */
+  width: 100%;
+  height: 100%;  /* Make the video full screen height */
   overflow: hidden;
   z-index: -1;
 }
