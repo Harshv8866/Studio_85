@@ -14,28 +14,129 @@
 <!-- New Section BELOW video -->
 <div class="after-video-section pt-5">
   <div class="container text-center">
-    <h2 class="mb-5 font" style="color: #3B3030;">What Makes Us Unique?</h2>
+    <h2 class="mb-5 font" style="color: #3B3030;">Why Our Clients Trust Us</h2>
     <div class="row">
       <div class="col-md-4 mb-4">
-        <img src="{% static 'main/images/img1.webp' %}" alt="Customized Editing" class="mb-3 feature-image" style="height: 80px;">
-        <h5 style="color: #664343;">Customized Editing</h5>
-        <p style="color: #795757;">Tailored edits based on your specific style and event type, making each photo truly personal.</p>
+        <img src="{% static 'main/images/img1.png' %}" alt="Consistent Quality" class="mb-3 feature-image">
+        <h5 style="color: #664343;">Consistent Quality</h5>
+        <p style="color: #795757;">Each project meets our premium editing standards — sharp, vibrant, and emotionally
+          compelling.</p>
       </div>
       <div class="col-md-4 mb-4">
-        <img src="{% static 'main/images/img2.png' %}" alt="High Resolution Output" class="mb-3 feature-image" style="height: 80px;">
-        <h5 style="color: #664343;">High Resolution Output</h5>
-        <p style="color: #795757;">We deliver ultra-high quality images suitable for both digital and print purposes.</p>
+        <img src="{% static 'main/images/img2.png' %}" alt="Privacy Guaranteed" class="mb-3 feature-image">
+        <h5 style="color: #664343;">Privacy Guaranteed</h5>
+        <p style="color: #795757;">We handle every client’s memories with strict confidentiality and secure storage.</p>
       </div>
       <div class="col-md-4 mb-4">
-        <img src="{% static 'main/images/img3.webp' %}" alt="Dedicated Support" class="mb-3 feature-image" style="height: 80px;">
-        <h5 style="color: #664343;">Dedicated Support</h5>
-        <p style="color: #795757;">Our team is always ready to assist you at every step of your editing journey.</p>
+        <img src="{% static 'main/images/img3.png' %}" alt="Creative Guidance" class="mb-3 feature-image">
+        <h5 style="color: #664343;">Creative Guidance</h5>
+        <p style="color: #795757;">Not sure what style suits your shoot? Our editors help shape your vision from start
+          to finish.</p>
       </div>
     </div>
   </div>
 </div>
+<div class="section-divider my-5" id="scroll-divider"></div>
 
 
 
 
-{% endblock %}
+<div class=" my-5">
+  <h2 class="text-center mb-4" style="color: #3B3030;">Studio Highlights</h2>
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <!-- Each image inside its own slide -->
+    <div class="swiper-slide p-0">
+      <img src="https://picsum.photos/300/200?random=1" class="w-100" />
+    </div>
+    <div class="swiper-slide p-0">
+      <img src="https://picsum.photos/300/200?random=2" class="w-100" />
+    </div>
+    <div class="swiper-slide p-0">
+      <img src="https://picsum.photos/300/200?random=3" class="w-100" />
+    </div>
+    <div class="swiper-slide p-0">
+      <img src="https://picsum.photos/300/200?random=4" class="w-100" />
+    </div>
+    <div class="swiper-slide p-0">
+      <img src="https://picsum.photos/300/200?random=5" class="w-100" />
+    </div>
+    <!-- add more if needed -->
+  </div>
+
+  <!-- Navigation and pagination -->
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+  <!-- <div class="swiper-pagination"></div> -->
+</div>
+
+
+
+</div>
+
+
+
+  {% block scripts %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const divider = document.querySelector(".section-divider");
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              divider.classList.add("animate");
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      observer.observe(divider);
+    });
+  </script>
+
+
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    speed: 800,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    // Responsive breakpoints
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+      },
+      576: {
+        slidesPerView: 2,
+        spaceBetween: 0,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 0,
+      },
+      992: {
+        slidesPerView: 4,
+        spaceBetween: 0,
+      },
+    },
+  });
+</script>
+
+
+
+  {% endblock %}
+
+  {% endblock %}
