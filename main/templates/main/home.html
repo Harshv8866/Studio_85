@@ -68,7 +68,7 @@
           <div class="swiper-slide p-0">
             <img src="{% static 'main/images/slider1.png' %}" class="w-100" />
           </div>
-        
+
           <!-- more slides -->
         </div>
 
@@ -78,7 +78,6 @@
     </div>
   </div>
 </div>
-<br>
 
 <section class="about-section py-5">
   <div class="container mt-5 mb-5 mt-xl-0 text-center">
@@ -87,10 +86,12 @@
 
     <div class="about-box fonts  mx-auto">
       <p>
-        Studio 85 is a creative photo editing studio turning your special moments into lasting visual stories. From wedding memories to cinematic shots, we enhance every frame with heart and skill.
+        Studio 85 is a creative photo editing studio turning your special moments into lasting visual stories. From
+        wedding memories to cinematic shots, we enhance every frame with heart and skill.
       </p>
       <p>
-        We blend artistry with attention to detail to ensure every photo reflects timeless emotion and clarity. We don’t just edit — we elevate your memories.
+        We blend artistry with attention to detail to ensure every photo reflects timeless emotion and clarity. We don’t
+        just edit — we elevate your memories.
       </p>
     </div>
   </div>
@@ -98,27 +99,105 @@
 
 
 
+<div class="about-content d-flex align-items-center">
+  <div class="about-image">
+    <div class="img-wrapper">
+      <img src="{% static 'main/images/about-studio.png' %}" alt="Our Studio">
+    </div>
+  </div>
+
+  <div class="about-text ">
+    <h2 class="section-title font" style="font-size: 32px; font-weight: bold; color: #3B3030; margin-bottom: 1rem; ">
+      About Studio 85</h2>
+
+    <p style="font-size: 16px; color: #5c4a3a; line-height: 1.7;">
+      At Studio 85, we believe in storytelling through visuals. Our journey began with a shared passion for capturing
+      life’s most meaningful moments — weddings, events, portraits, and more.
+    </p>
+
+    <p style="font-size: 16px; color: #5c4a3a; line-height: 1.7;">
+      Over the years, we’ve evolved into a creative house that blends traditional aesthetics with modern editing
+      finesse. Our photographers, editors, and videographers collaborate to deliver timeless visuals that resonate
+      emotionally.
+    </p>
+
+    <p style="font-size: 16px; color: #5c4a3a; line-height: 1.7;">
+      Whether it's a destination wedding or a pre-wedding shoot, we treat every project as a canvas to craft visual
+      poetry. We don’t just document events — we create experiences that live forever.
+    </p>
+
+    <p style="font-size: 16px; font-weight: bold; color: #795757; margin-top: 1.5rem;">
+      📍 Based in VALSAD & Available Worldwide
+    </p>
+  </div>
+</div>
+
+<!-- instagram -->
+
+<section class="instagram-section">
+  <h2 class="section-title">Follow Us on Instagram</h2>
+  <div class="instagram-grid">
+    <!-- Example tile -->
+    <a href="https://www.instagram.com/studio_85_wedding/p/DKj1VoJtgZa/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL1.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/p/DJuKiA-tA4E/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL2.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/p/DItdggztDZO/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL3.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/p/DIBr5Nwtu7j/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL4.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/p/DFspp7GtAdS/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL6.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/reel/DHvPVbftous/" target="_blank" class="insta-tile">
+      <div class="media-wrapper">
+        <img src="{% static 'main/images/THUMBNAIL5.jpg' %}" alt="Instagram thumbnail">
+        <video muted playsinline preload="none">
+          <source src="{% static 'main/images/THUMBNAIL5.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/p/DFK8G5XNN5e/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL7.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+    <a href="https://www.instagram.com/studio_85_wedding/p/DEun5l8te-V/" target="_blank" class="insta-tile">
+      <img src=" {% static 'main/images/THUMBNAIL8.jpg' %}" alt="Studio 85 Instagram 1">
+    </a>
+   
+    <!-- repeat .insta-tile for each post -->
+  </div>
+  <p class="follow-text">@studio_85_photography</p>
+</section>
 
 
-  {% block scripts %}
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const divider = document.querySelector(".section-divider");
 
-      const observer = new IntersectionObserver(
-        function (entries) {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              divider.classList.add("animate");
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
 
-      observer.observe(divider);
-    });
-  </script>
+
+
+{% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const divider = document.querySelector(".section-divider");
+
+    const observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            divider.classList.add("animate");
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(divider);
+  });
+</script>
 
 
 <script>
@@ -159,8 +238,23 @@
   });
 </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hoverVideos = document.querySelectorAll(".insta-tile video");
+
+    hoverVideos.forEach(video => {
+      video.addEventListener("mouseenter", () => video.play());
+      video.addEventListener("mouseleave", () => {
+        video.pause();
+        video.currentTime = 0; // reset to start
+      });
+    });
+  });
+</script>
 
 
-  {% endblock %}
 
-  {% endblock %}
+
+{% endblock %}
+
+{% endblock %}
