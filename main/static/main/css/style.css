@@ -248,6 +248,17 @@ font-family: "Cinzel", serif;
   font-weight: 500;
   font-style: normal;
 }
+.fonts2{
+ 
+  font-family: "Lexend Tera", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  text-transform: uppercase;
+    line-height: 1.6;
+
+  font-style: normal;
+
+}
 
 .section-divider {
   width: 0;
