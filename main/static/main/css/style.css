@@ -374,7 +374,8 @@ font-family: "Cinzel", serif;
 }
 .about-section {
   background-image: url("/static/main/images/MOBILE-BG2.png");
-  background-size: 100%;
+  background-size: contain;
+
   background-position: center;
   background-repeat: no-repeat;
   color: #3B3030;
