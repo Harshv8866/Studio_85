@@ -417,6 +417,9 @@ font-family: "Cinzel", serif;
 @media (max-width: 767px) {
   .instagram-grid {
     grid-template-columns: repeat(2, 1fr);
+    /* margin-left: auto; */
+      margin: auto ;
+
     width: 330px;
   }
   .instagram-section {
