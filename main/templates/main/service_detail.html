@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4" style="color: #3B3030;">{{ service.name }}</h2>
+
+  {% if media %}
+    <div class="row">
+      {% for m in media %}
+        <div class="col-md-4 mb-4">
+          {% if m.media_file.url|lower endswith ".mp4" %}
+            <video controls class="w-100">
+              <source src="{{ m.media_file.url }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          {% else %}
+            <img src="{{ m.media_file.url }}" class="img-fluid rounded" alt="">
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No media uploaded yet for this service.</p>
+  {% endif %}
+</div>
+{% endblock %}

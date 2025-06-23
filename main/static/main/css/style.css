@@ -44,6 +44,8 @@ main {
     padding: 2rem;
 }
 
+  /* Smooth Dropdown Animation */
+
 /* footer */
 .studio-footer {
   background-color: #1e1c1a;
@@ -556,8 +558,27 @@ font-family: "Cinzel", serif;
    margin-left: -2rem !important;
   margin-right: -2rem !important;
 }
-
-
-
-
 }
+
+
+  @media (max-width: 768px) {
+    .navbar-collapse {
+      position: absolute;
+      top: 100px;
+      left: 0;
+      width: 100%;
+      background-color: #3b303073; /* match your dark theme */
+      z-index: 9999;
+      padding: 10px 0;
+    }
+
+    .navbar-nav .nav-item {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+  }
+

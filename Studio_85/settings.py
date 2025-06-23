@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.services_list',
             ],
         },
     },
@@ -144,3 +145,22 @@ DATABASES['default'] = dj_database_url.config(default='sqlite:///db.sqlite3')
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+
+# settings.py
+from django.urls import path, include
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# urls.py (root urls.py)
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
