@@ -1,0 +1,99 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<style>
+  .service-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #FFF0D1;
+    text-align: center;
+  }
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .media-item {
+    background-color: #4a3b3b;
+    border: 2px solid #FFF0D1;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .media-item:hover {
+    transform: scale(1.02);
+  }
+
+  .media-item img,
+  .media-item video {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .no-media {
+    text-align: center;
+    color: gray;
+    font-style: italic;
+    padding: 40px 10px;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background-color: #795757;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+
+  .back-link:hover {
+    background-color: #a06666;
+  }
+
+  @media (max-width: 600px) {
+    .service-title {
+      font-size: 22px;
+    }
+  }
+</style>
+
+<div class="container">
+  <h2 class="service-title">{{ service.name|title }}</h2>
+
+  {% if media %}
+    <div class="media-grid">
+      {% for item in media %}
+        <div class="media-item">
+          {% with item.media_file.url|lower as url %}
+            {% if url|slice:"-4:" == ".mp4" or url|slice:"-5:" == ".webm" or url|slice:"-4:" == ".mov" %}
+              <video controls>
+                <source src="{{ item.media_file.url }}">
+                Your browser does not support the video tag.
+              </video>
+            {% else %}
+              <img src="{{ item.media_file.url }}" alt="{{ service.name }} Image">
+            {% endif %}
+          {% endwith %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-media">No media uploaded for this service.</p>
+  {% endif %}
+
+  <div style="text-align: center;">
+    <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+  </div>
+</div>
+
+{% endblock %}
