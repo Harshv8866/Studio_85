@@ -14,12 +14,13 @@ urlpatterns = [
 
     path('upload-media/', views.upload_media, name='upload_media'),
 
-    path('update-contact/', views.update_contact, name='update_contact'),
     # in urls.py
 path('service-detail/<int:service_id>/', views.service_detail, name='service_detail'),
 
 path('rename-service/<int:service_id>/', views.rename_service, name='rename_service'),
 path('delete-media/<int:media_id>/', views.delete_media, name='delete_media'),
+path('delete-media-ajax/<int:media_id>/', views.delete_media_ajax, name='delete_media_ajax'),
+
 
 
 

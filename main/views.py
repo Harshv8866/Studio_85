@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import AdminUser, Service, ServiceMedia, StudioContact
+from .models import AdminUser, Service, ServiceMedia
 
 # Static Pages
 def home(request):
@@ -50,47 +50,42 @@ def admin_dashboard(request):
         return redirect('admin_login')
     
     services = Service.objects.all()
-    contact = StudioContact.objects.first()
     return render(request, 'admin_dashboard.html', {
         'services': services,
-        'contact': contact,
     })
 
 # Upload Media with service selection
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Service, ServiceMedia
+
 def upload_media(request):
     if not request.session.get('admin_logged_in'):
         return redirect('admin_login')
 
     if request.method == 'POST':
         service_id = request.POST.get("service_id")
+        caption = request.POST.get("caption", "")
         service = get_object_or_404(Service, id=service_id)
+
+        # Save caption on Service
+        if caption:
+            service.caption = caption
+            service.save()
+
+        # Save uploaded files
         for file in request.FILES.getlist("media_file"):
-            ServiceMedia.objects.create(service=service, media_file=file)
+            ServiceMedia.objects.create(
+                service=service,
+                media_file=file,
+                caption=caption
+            )
+
         return redirect('admin_dashboard')
-    
+
     return redirect('admin_dashboard')
 
 # Update Studio Contact Info
-def update_contact(request):
-    if not request.session.get('admin_logged_in'):
-        return redirect('admin_login')
 
-    contact = StudioContact.objects.first()
-    if request.method == 'POST':
-        if not contact:
-            contact = StudioContact.objects.create(
-                phone=request.POST.get('phone', ''),
-                email=request.POST.get('email', ''),
-                address=request.POST.get('address', '')
-            )
-        else:
-            contact.phone = request.POST.get('phone', '')
-            contact.email = request.POST.get('email', '')
-            contact.address = request.POST.get('address', '')
-            contact.save()
-        return redirect('admin_dashboard')
-
-    return redirect('admin_dashboard')
 
 # Service Detail Page (for frontend)
 def service_detail(request, service_id):
@@ -135,3 +130,22 @@ from .models import Service
 def services_page(request):
     services = Service.objects.all()
     return render(request, 'services.html', {'services': services})
+
+
+from django.http import JsonResponse
+from .models import ServiceMedia
+
+def delete_media_ajax(request, media_id):
+    if not request.session.get('admin_logged_in'):
+        return JsonResponse({'success': False, 'error': 'Not authorized'}, status=403)
+
+    if request.method == "POST":
+        try:
+            media = ServiceMedia.objects.get(id=media_id)
+            media.delete()
+            return JsonResponse({'success': True})
+        except ServiceMedia.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Media not found'}, status=404)
+
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+

@@ -2,91 +2,217 @@
 
 {% block content %}
 <style>
-  .service-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  body {
+    background-color: #3B3030;
     color: #FFF0D1;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .service-container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 60px 20px;
+  }
+
+  .service-title {
+    font-size: 38px;
+    font-weight: bold;
     text-align: center;
+    margin-bottom: 40px;
+    color: #FFE4B5;
+    border-bottom: 3px solid #FFE4B5;
+    padding-bottom: 10px;
+  }
+
+  .couple-caption {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 40px;
+    color: #FFE4B5;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px #000;
   }
 
   .media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 25px;
+    margin-bottom: 40px;
   }
 
   .media-item {
-    background-color: #4a3b3b;
-    border: 2px solid #FFF0D1;
-    border-radius: 10px;
+    width: 260px;
+    background-color: #4e3d3d;
+    border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
   }
 
   .media-item:hover {
-    transform: scale(1.02);
+    transform: translateY(-6px);
+    box-shadow: 0 6px 20px rgba(255, 240, 209, 0.3);
   }
 
-  .media-item img,
-  .media-item video {
+  .media-inner {
     width: 100%;
-    height: 140px;
-    object-fit: cover;
-    border-radius: 6px;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .media-inner img
+  {
+    width: 100%;
+    height: 100%;
+object-fit: cover;
+    display: block;
+  }
+  .media-inner video {
+    width: 100%;
+    height: 100%;
+object-fit: fill;
+    display: block;
+
   }
 
   .no-media {
     text-align: center;
-    color: gray;
+    color: #ccc;
     font-style: italic;
-    padding: 40px 10px;
+    padding: 60px 10px;
   }
+  .media-inner {
+  height: 280px; /* was 200px or 160px */
+  background-color: #2e2e2e;
+}
 
   .back-link {
     display: inline-block;
-    margin-top: 30px;
-    padding: 10px 20px;
-    background-color: #795757;
-    color: white;
+    margin-top: 50px;
+    padding: 12px 30px;
+    background-color: #664343;
+    color: #FFF0D1;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
   }
 
   .back-link:hover {
-    background-color: #a06666;
+    background-color: #8e5f5f;
   }
 
-  @media (max-width: 600px) {
-    .service-title {
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    max-width: 92vw;
+    max-height: 92vh;
+    border: 4px solid #FFE4B5;
+    border-radius: 12px;
+    position: relative;
+    padding: 10px;
+    background-color: #2f2f2f;
+  }
+
+  .modal-content img,
+  .modal-content video {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  
+
+  .modal-close {
+    position: absolute;
+    top: -35px;
+    right: -10px;
+    color: #FFF0D1;
+    font-size: 30px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  @media (max-width: 768px) {
+    .media-item {
+      width: 200px;
+    }
+
+   .media-inner {
+  height: 280px; /* was 200px or 160px */
+  background-color: #2e2e2e;
+}
+
+    .couple-caption {
       font-size: 22px;
     }
   }
+
+  @media (max-width: 480px) {
+    .media-item {
+      width: 180px;
+    }
+
+    .media-inner {
+      height: 150px;
+    }
+  }
+    .couple-caption {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 30px;
+    color: #FFE4B5;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px #000;
+  }
 </style>
 
-<div class="container">
+<div class="service-container">
   <h2 class="service-title">{{ service.name|title }}</h2>
 
   {% if media %}
-    <div class="media-grid">
-      {% for item in media %}
-        <div class="media-item">
+    {% regroup media by caption as captioned_media %}
+
+    {% for group in captioned_media %}
+      <div class="couple-caption">{{ group.grouper }}</div>
+      <div class="media-grid">
+        {% for item in group.list %}
           {% with item.media_file.url|lower as url %}
-            {% if url|slice:"-4:" == ".mp4" or url|slice:"-5:" == ".webm" or url|slice:"-4:" == ".mov" %}
-              <video controls>
-                <source src="{{ item.media_file.url }}">
-                Your browser does not support the video tag.
-              </video>
-            {% else %}
-              <img src="{{ item.media_file.url }}" alt="{{ service.name }} Image">
-            {% endif %}
+            {% with url|slice:"-4:" as ext %}
+              <div class="media-item" onclick="openModal('{{ url }}', '{{ ext }}')">
+                <div class="media-inner">
+                  {% if ext == ".mp4" or ext == ".mov" or ext == ".webm" %}
+                    <video muted controls autoplay>
+                      <source src="{{ url }}" type="video/{{ ext|cut:'.' }}">
+                    </video>
+                  {% else %}
+                    <img src="{{ url }}" alt="photo">
+                  {% endif %}
+                </div>
+              </div>
+            {% endwith %}
           {% endwith %}
-        </div>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
   {% else %}
     <p class="no-media">No media uploaded for this service.</p>
   {% endif %}
@@ -96,4 +222,59 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div id="mediaModal" class="modal">
+  <div class="modal-content" id="modalContent" onclick="event.stopPropagation()">
+    <span class="modal-close" onclick="closeModal()">×</span>
+  </div>
+</div>
+
+<script>
+  function openModal(src, ext) {
+    const modal = document.getElementById('mediaModal');
+    const content = document.getElementById('modalContent');
+    content.innerHTML = '';
+
+    const closeBtn = document.createElement('span');
+    closeBtn.className = 'modal-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.onclick = closeModal;
+    content.appendChild(closeBtn);
+
+    if (ext === '.mp4' || ext === '.webm' || ext === '.mov') {
+      const video = document.createElement('video');
+      video.src = src;
+      video.controls = true;
+      video.playsInline = true;
+      video.style.borderRadius = "10px";
+      video.style.maxWidth = "90vw";
+      video.style.maxHeight = "90vh";
+      content.appendChild(video);
+    } else {
+      const img = document.createElement('img');
+      img.src = src;
+      img.style.borderRadius = "10px";
+      img.style.maxWidth = "90vw";
+      img.style.maxHeight = "90vh";
+      content.appendChild(img);
+    }
+
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('mediaModal');
+    const content = document.getElementById('modalContent');
+    const videos = content.getElementsByTagName('video');
+
+    for (let video of videos) {
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+    }
+
+    content.innerHTML = '';
+    modal.style.display = 'none';
+  }
+</script>
 {% endblock %}

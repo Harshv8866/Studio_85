@@ -1,9 +1,4 @@
-
-# studio/models.py
-from django.db import models
-
-
-# main/models.py
+# studio/models.py or main/models.py (whichever file it was in)
 
 from django.db import models
 
@@ -17,6 +12,7 @@ class AdminUser(models.Model):
 
 class Service(models.Model):
     name = models.CharField(max_length=100)
+    caption = models.CharField(max_length=255, blank=True, null=True)  # 👈 Add this
 
     def __str__(self):
         return self.name
@@ -25,19 +21,13 @@ class Service(models.Model):
         return self.media.filter(media_file__iendswith=('.jpg', '.jpeg', '.png')).first()
 
 
+
 class ServiceMedia(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='media')
     media_file = models.FileField(upload_to='service_media/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    caption = models.CharField(max_length=255, blank=True)  # 👈 New field
+
 
     def __str__(self):
         return f"{self.service.name} - {self.media_file.name}"
-
-
-class StudioContact(models.Model):
-    phone = models.CharField(max_length=20)
-    email = models.EmailField()
-    address = models.TextField()
-
-    def __str__(self):
-        return "Studio Contact Info"
