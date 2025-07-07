@@ -22,12 +22,23 @@ class Service(models.Model):
 
 
 
+import os
+from django.db import models
+
+import os
+
 class ServiceMedia(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='media')
     media_file = models.FileField(upload_to='service_media/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    caption = models.CharField(max_length=255, blank=True)  # 👈 New field
+    caption = models.CharField(max_length=255, blank=True)
 
+    def delete(self, *args, **kwargs):
+        # Delete the file from the filesystem
+        if self.media_file and os.path.isfile(self.media_file.path):
+            os.remove(self.media_file.path)
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return f"{self.service.name} - {self.media_file.name}"
+
