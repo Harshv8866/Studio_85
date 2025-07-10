@@ -4,6 +4,18 @@ body {
     background-color: #FFF0D1;
     color: #3B3030;
 }
+.navbar-transparent {
+  background-color: transparent !important;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.navbar-color{
+  background-color: #3B3030;
+
+}
 
 .logo{
   height: 70px;
@@ -303,7 +315,7 @@ font-family: "Cinzel", serif;
 .slider-background-clip {
   background-color: #3B3030; /* or #795757 or any of your theme colors */
   clip-path: polygon(50% 0, 100% 18%, 100% 100%, 0 100%, 0 18%);
-  padding: 30px 10px;
+  padding: 30px 0px;
   position: relative;
   z-index: 1;
 }
@@ -562,7 +574,7 @@ font-family: "Cinzel", serif;
 }
 
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .navbar-collapse {
       position: absolute;
       top: 100px;
@@ -581,5 +593,96 @@ font-family: "Cinzel", serif;
     .navbar-toggler:focus {
       box-shadow: none;
     }
+    
   }
+
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #3B3030;
+  color: #FFDDAA !important;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+    text-decoration: none;
+  color: inherit;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+
+
+
+/* Fix footer logo size on iPads and tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .studio-footer .footer-logo {
+    height: 50px !important;
+    width: auto !important;
+    margin-bottom: 12px;
+  }
+
+  .studio-footer .footer-tagline {
+    font-size: 13px;
+    max-width: 220px;
+  }
+
+  .studio-footer .footer-column h5 {
+    font-size: 15px;
+  }
+
+  .studio-footer .footer-column ul li a {
+    font-size: 14px;
+  }
+
+  .studio-footer .subscribe-form input {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .studio-footer .subscribe-form button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #FFF0D1 !important;
+
+  top: 50%;
+  position: absolute; /* required for Swiper */
+  z-index: 10;
+
+  transition: all 0.3s ease;
+}
+
+/* Optional: Hover effect */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform:scale(1.05)
+}
+
+/* Override Swiper's pseudo-elements */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff0d1b0;
+}
+
 

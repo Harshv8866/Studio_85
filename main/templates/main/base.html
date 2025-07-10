@@ -18,6 +18,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
 <!-- <link href="https://fonts.googleapis.com/css2?family=Lexend+Peta:wght@100..900&display=swap" rel="stylesheet"> -->
  <link href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
 <!-- Swiper CSS (in <head>) -->
 <link
   rel="stylesheet"
@@ -37,7 +39,13 @@
 
   <!-- Navbar -->
   <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark navbar-transparent py-3 ">
+<nav class="navbar navbar-expand-lg navbar-dark py-3 
+  {% if request.path == '/' %}
+    navbar-transparent
+  {% else %}
+    navbar-color
+  {% endif %}
+">
   <div class="container">
     <a class="navbar-brand fs-4 fw-bold text-white" href="#">
       <img class="logo" src="{% static 'main/images/logo.png' %}" alt="">
@@ -88,7 +96,10 @@
 
   <!-- Main content -->
   <main class=" py-4">
-    {% block content %}{% endblock %}
+    {% block content %}
+
+
+    {% endblock %}
   </main>
 
   <!-- Footer -->
@@ -136,6 +147,13 @@
     <p>&copy; 2025 Studio 85. All rights reserved.</p>
   </div>
 </footer>
+
+    <a href="https://wa.me/917405563004?text=Hello%20Studio%2085%2C%20I%20want%20to%20inquire%20about%20your%20photography%20services." 
+   class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+  <!-- <img src="{% static 'main/images/whatsapp-icon.png' %}" alt="WhatsApp" /> -->
+   <i class="fa-brands fa-whatsapp"></i>
+</a>
+
 
 
 </body>

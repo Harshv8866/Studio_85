@@ -21,6 +21,9 @@ path('rename-service/<int:service_id>/', views.rename_service, name='rename_serv
 path('delete-media/<int:media_id>/', views.delete_media, name='delete_media'),
 path('delete-media-ajax/<int:media_id>/', views.delete_media_ajax, name='delete_media_ajax'),
 
+path('admin/delete-inquiry/<int:msg_id>/', views.delete_inquiry, name='delete_inquiry'),
+
+
 
 
 

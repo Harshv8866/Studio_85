@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import AdminUser, Service, ServiceMedia
+from .models import Service, ContactMessage
+from .forms import ContactMessageForm
+
+
 
 # Static Pages
 def home(request):
@@ -11,8 +15,7 @@ def about(request):
 def services(request):
     return render(request, 'main/services.html')
 
-def contact(request):
-    return render(request, 'main/contact.html')
+
 
 # Admin Logout
 def admin_logout(request):
@@ -45,16 +48,41 @@ def admin_login(request):
     return render(request, 'admin_login.html')
 
 # Admin Dashboard with services and contact
+from .models import Service, ContactMessage, StudioContact
+from .forms import StudioContactForm
+from django.contrib import messages
+from django.shortcuts import render, redirect
+
 def admin_dashboard(request):
     if not request.session.get('admin_logged_in'):
         return redirect('admin_login')
-    
+
     services = Service.objects.all()
+    inquiries = ContactMessage.objects.all().order_by('-created_at')
+
+    # Get or create the contact info (assuming only one record)
+    contact_info, created = StudioContact.objects.get_or_create(pk=1)
+
+    # Handle contact info update
+    if request.method == 'POST' and 'update_contact' in request.POST:
+        contact_form = StudioContactForm(request.POST, instance=contact_info)
+        if contact_form.is_valid():
+            contact_form.save()
+            messages.success(request, "Studio contact information updated successfully.")
+            return redirect('admin_dashboard')
+    else:
+        contact_form = StudioContactForm(instance=contact_info)
+
     return render(request, 'admin_dashboard.html', {
         'services': services,
+        'inquiries': inquiries,
+        'contact_form': contact_form,
     })
 
-# Upload Media with service selection
+
+
+
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Service, ServiceMedia
 
@@ -80,10 +108,10 @@ def upload_media(request):
                 caption=caption
             )
 
-        return redirect('admin_dashboard')
+        messages.success(request, "Media uploaded successfully.")
+        return redirect('/admin-dashboard/?section=media')  # ✅ go to media section
 
-    return redirect('admin_dashboard')
-
+    return redirect('/admin-dashboard/?section=media')
 # Update Studio Contact Info
 
 
@@ -98,17 +126,26 @@ def service_detail(request, service_id):
 
 
 # Rename a Service
+from django.contrib import messages
+
 def rename_service(request, service_id):
     if not request.session.get('admin_logged_in'):
         return redirect('admin_login')
     
     service = get_object_or_404(Service, id=service_id)
+    
     if request.method == 'POST':
         new_name = request.POST.get('new_name')
         if new_name:
             service.name = new_name
             service.save()
+            messages.success(request, 'Name changed successfully.')
+        else:
+            messages.error(request, 'Name cannot be empty.')
+    
     return redirect('admin_dashboard')
+
+
 
 
 from django.shortcuts import redirect, get_object_or_404
@@ -148,4 +185,44 @@ def delete_media_ajax(request, media_id):
             return JsonResponse({'success': False, 'error': 'Media not found'}, status=404)
 
     return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+from .models import StudioContact  # Make sure you import this at the top
+
+def contact(request):
+    contact_info = StudioContact.objects.first()  # Fetch contact details
+
+    if request.method == 'POST':
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'main/contact.html', {
+                'form': ContactMessageForm(), 
+                'success': True,
+                'contact_info': contact_info  # Pass to template
+            })
+    else:
+        form = ContactMessageForm()
+
+    return render(request, 'main/contact.html', {
+        'form': form,
+        'contact_info': contact_info  # Pass to template
+    })
+
+
+
+from django.shortcuts import get_object_or_404, redirect
+from .models import ContactMessage
+
+def delete_inquiry(request, msg_id):
+    if not request.session.get('admin_logged_in'):
+        return redirect('admin_login')
+
+    inquiry = get_object_or_404(ContactMessage, id=msg_id)
+
+    if request.method == 'POST':
+        inquiry.delete()
+
+    return redirect('/admin-dashboard/?section=inquiries')
+
+
 
