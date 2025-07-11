@@ -171,3 +171,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     # ... your existing paths
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+ALLOWED_HOSTS = ['studio85.in', 'www.studio85.in', '103.180.213.247']
